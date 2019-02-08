@@ -1,18 +1,14 @@
 const sharedWorkerGloabal: SharedWorker.SharedWorkerGlobalScope = self as any;
 //bundling other node libraries
 import { workerKid } from "./workerkid";
-import randomcolor = require('randomcolor'); // import the script
-
-let message = "";
+import {AlertPrinter} from  "../printer";
 
 sharedWorkerGloabal.onconnect = (e: MessageEvent) => {
     const port = e.ports[0];
 
     port.onmessage = (e: MessageEvent) => {
-        message += e.data;
-        //message += randomcolor();
-        message += workerKid();
-        message = message.replace(/fuck/gi, "tutu");
-        port.postMessage(message);
+        if (e.data === "ping") {
+            port.postMessage("Response from worker!");
+        }
     }
 }

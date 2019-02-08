@@ -8,12 +8,13 @@ class IOManager {
 
     performIO() {
         let worker = new MySharedWorker();
-        let message = this.reader.read();
         worker.port.onmessage = (ev: MessageEvent) => {
             this.printer.print(ev.data);
         };
         
-        worker.port.postMessage(message);
+        setInterval( () => {
+            worker.port.postMessage("ping")
+        }, 2000 );
     }
 }
 

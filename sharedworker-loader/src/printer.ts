@@ -4,6 +4,6 @@ export abstract class Printer {
 
 export class AlertPrinter {
     print(str: string) {
-        window.alert(str);
+        window.document.writeln(str);
     }
 }
